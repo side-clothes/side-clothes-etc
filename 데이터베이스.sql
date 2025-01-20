@@ -79,19 +79,19 @@ create table `order`(
 
 create table product(     -- 수정 -- 
  id BIGINT PRIMARY KEY AUTO_INCREMENT,
- productGenre VARCHAR(50),
- productSubGenre VARCHAR(50),
- productIsbn BIGINT,
- productTitle VARCHAR(50),
+ product_genre VARCHAR(50),
+ product_sub_genre VARCHAR(50),
+ product_isbn BIGINT,
+ product_title VARCHAR(50),
  product_manufacturer VARCHAR(50),
- productPublicationDate DATETIME,
- productPrice INT,
- productSalesPrice INT,
- productStock INT,
- productLike INT,
- productIntroduceDtl VARCHAR(255),
- productImageUrl VARCHAR(255),
- productSalesCount INT
+ product_publication_date DATETIME,
+ product_price INT,
+ product_sales_price INT,
+ product_stock INT,
+ product_like INT,
+ product_introduce_dtl VARCHAR(255),
+ product_image_url VARCHAR(255),
+ product_sales_count INT
 );
 
 
