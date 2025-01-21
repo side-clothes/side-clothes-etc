@@ -83,24 +83,16 @@ COLLATE = utf8mb4_general_ci;
 CREATE TABLE IF NOT EXISTS `mmbs_database`.`product` (
   -- 고유번호
   `product_seq` INT AUTO_INCREMENT NOT NULL,
-  -- 장르 [국내도서, 외국도서, 전집, 토이/교구, 부모님의 서재]
+  -- 장르 [추천, 랭킹, 세일, 브랜드, 신상 등등]
   `product_genre` VARCHAR(45) NOT NULL,
   -- 세부장르
   `product_sub_genre` VARCHAR(45) NOT NULL,
   -- 고유번호
   `product_isbn` INT,
   -- 제목
-  `product_title` text NOT NULL,
-  -- 저자
-  `product_writer` VARCHAR(45) NULL,
+  `product_name` VARCHAR(255) NOT NULL,
   -- 출판사
-  `product_publisher` VARCHAR(45),
-  -- 연령 [0~3세, 4~7세, 부모]
-  `product_age` VARCHAR(45),
-  -- 연랑 세부 장르
-  `product_sub_age` VARCHAR(45),
-  -- 출판일
-  `product_publication_date` DATE NOT NULL,
+  `product_brand` VARCHAR(45),
   -- 가격
   `product_price` INT NOT NULL,
   -- 할인가격
@@ -137,8 +129,8 @@ CREATE TABLE IF NOT EXISTS `mmbs_database`.`user` (
   `user_name` VARCHAR(45) NOT NULL,
   -- 전화번호
   `user_phone` VARCHAR(45) NOT NULL,
-  -- 아이 생일
-  `user_kid_birth` VARCHAR(45) DEFAULT NULL,
+  -- 생일
+  `user_birth` VARCHAR(45) DEFAULT NULL,
   -- 가입 날짜
   `user_sign_up_date` DATETIME NOT NULL,
   -- 탈퇴 날짜
