@@ -1,4 +1,5 @@
 -- -----------------------------------------------------
+DROP DATABASE IF EXISTS `mmbs_database`;
 CREATE SCHEMA IF NOT EXISTS `mmbs_database` DEFAULT CHARACTER SET utf8mb4;
 USE `mmbs_database`;
 -- -----------------------------------------------------
@@ -48,7 +49,7 @@ COLLATE = utf8mb4_general_ci;
 -- -----------------------------------------------------
 -- Table `mmbs_database`.`order_detail`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mmbs_database`.`order_detail` (
+CREATE TABLE IF NOT EXISTS `mmbs_database`.`order_details` (
   -- 주문상세 시퀀스
   `order_detail_seq` int AUTO_INCREMENT,
   -- 주문번호
@@ -57,6 +58,10 @@ CREATE TABLE IF NOT EXISTS `mmbs_database`.`order_detail` (
   `product_id` int NOT NULL,
   -- 개당 금액
   `product_price` int NOT NULL,
+  -- 제품 이름
+  `product_title` VARCHAR(255),
+  -- 제품 이미지
+  `product_image_url` VARCHAR(255),
   -- 갯수
   `product_count` int NOT NULL,
   PRIMARY KEY (`order_detail_seq`))
@@ -66,7 +71,7 @@ COLLATE = utf8mb4_general_ci;
 -- -----------------------------------------------------
 -- Table `mmbs_database`.`like`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mmbs_database`.`like` (
+CREATE TABLE IF NOT EXISTS `mmbs_database`.`likes` (
   -- 좋아요 시퀀스
   `like_seq` int AUTO_INCREMENT,
   -- 좋아요한 제품 아이디
@@ -80,7 +85,7 @@ COLLATE = utf8mb4_general_ci;
 -- -----------------------------------------------------
 -- Table `mmbs_database`.`product`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mmbs_database`.`product` (
+CREATE TABLE IF NOT EXISTS `mmbs_database`.`products` (
   -- 고유번호
   `product_seq` INT AUTO_INCREMENT NOT NULL,
   -- 장르 [추천, 랭킹, 세일, 브랜드, 신상 등등]
@@ -88,10 +93,10 @@ CREATE TABLE IF NOT EXISTS `mmbs_database`.`product` (
   -- 세부장르
   `product_sub_genre` VARCHAR(45) NOT NULL,
   -- 고유번호
-  `product_isbn` INT,
+  `product_number` VARCHAR(255),
   -- 제목
   `product_name` VARCHAR(255) NOT NULL,
-  -- 출판사
+  -- 브랜드
   `product_brand` VARCHAR(45),
   -- 가격
   `product_price` INT NOT NULL,
@@ -114,7 +119,7 @@ COLLATE = utf8mb4_general_ci;
 -- -----------------------------------------------------
 -- Table `mmbs_database`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mmbs_database`.`user` (
+CREATE TABLE IF NOT EXISTS `mmbs_database`.`users` (
   -- 아이디
   `user_id` VARCHAR(45) NOT NULL,
   -- 비밀번호
@@ -142,7 +147,7 @@ COLLATE = utf8mb4_general_ci;
 -- -----------------------------------------------------
 -- Table `mmbs_database`.`recommend`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mmbs_database`.`recommend` (
+CREATE TABLE IF NOT EXISTS `mmbs_database`.`recommends` (
     -- 추천인 테이블 시퀀스
   `recommend_seq` int AUTO_INCREMENT,
     -- 추천인 (추천 당한 사람)
@@ -156,13 +161,15 @@ COLLATE = utf8mb4_general_ci;
 -- -----------------------------------------------------
 -- Table `mmbs_database`.`ask`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mmbs_database`.`ask` (
+CREATE TABLE IF NOT EXISTS `mmbs_database`.`asks` (
     -- 문의 번호
   `ask_id` int NOT NULL AUTO_INCREMENT,
     -- 작성자 아이디 (참조)
   `ask_writer` VARCHAR(45) NOT NULL,
     -- 문의 카테고리
   `ask_sort` VARCHAR(45) NOT NULL,
+	-- 문의 제목
+  `ask_title` VARCHAR(255) NOT NULL,
     -- 문의 내용
   `ask_content` TEXT NOT NULL,
     -- 문의 날짜
@@ -178,7 +185,7 @@ COLLATE = utf8mb4_general_ci;
 -- -----------------------------------------------------
 -- Table `mmbs_database`.`cart`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mmbs_database`.`cart` (
+CREATE TABLE IF NOT EXISTS `mmbs_database`.`carts` (
     -- 카트 시퀀스
   `cart_id` int NOT NULL AUTO_INCREMENT,
   -- 유저 아이디
@@ -200,7 +207,7 @@ COLLATE = utf8mb4_general_ci;
 -- -----------------------------------------------------
 -- Table `mmbs_database`.`gift`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mmbs_database`.`gift` (
+CREATE TABLE IF NOT EXISTS `mmbs_database`.`gifts` (
     -- 사은품 코드
   `gift_code` VARCHAR(2),
     -- 사은품 이름
@@ -208,6 +215,54 @@ CREATE TABLE IF NOT EXISTS `mmbs_database`.`gift` (
     -- 사은품 이미지
     `gift_image` TEXT NOT NULL,
   PRIMARY KEY (`gift_code`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_general_ci;
+
+-- -----------------------------------------------------
+-- Table `mmbs_database`.`order_checks`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mmbs_database`.`order_checks` (
+    `order_number` VARCHAR(255),
+    -- 개당 금액
+    `product_price` INT,
+    -- 제품 이름
+    `product_title` VARCHAR(255),
+    -- 제품 이미지
+    `product_image_url` VARCHAR(255),
+    -- 갯수
+    `product_count` INT,
+	-- 주문 날짜
+    `order_datetime` DATE,
+    -- 주문 상태
+    `order_status` INT,
+    -- 최종 결제 금액
+    `order_total_price` INT,
+    -- 배송 회사
+    `order_ship_company` VARCHAR(255),
+  PRIMARY KEY (`order_number`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_general_ci;
+
+-- -----------------------------------------------------
+-- Table `mmbs_database`.`reviews`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mmbs_database`.`reviews` (
+    `review_id` INT AUTO_INCREMENT,
+    -- 리뷰 작성자 아이디
+    `review_writer_id` VARCHAR(255),
+    -- 제품 목록
+    `review_product_id` INT,
+    -- 별점
+    `review_score` INT,
+    -- 리뷰 내용
+    `review_content` TEXT,
+    -- 리뷰 이미지
+    `review_image` VARCHAR(255),
+    -- 리뷰 날짜
+    `review_datetime` DATE,
+  PRIMARY KEY (`review_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_general_ci;
