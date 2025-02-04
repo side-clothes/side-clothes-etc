@@ -219,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `a1`.`asks` (
     -- 작성자 아이디 (참조) *****
 	`id`BIGINT NOT NULL,
     -- 문의 카테고리
-	`ask_sort` VARCHAR(45) NOT NULL,
+	`ask_sort` ENUM('제품 문의','배송 문의','기타 문의') NOT NULL,
 	-- 문의 제목
 	`ask_title` VARCHAR(255) NOT NULL,
     -- 문의 내용
