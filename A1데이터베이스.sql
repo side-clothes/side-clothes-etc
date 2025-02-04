@@ -227,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `a1`.`asks` (
     -- 문의 날짜
 	`ask_datetime` VARCHAR(10) NOT NULL,
     -- 문의 상태 (진행 중, 답변 완료)
-	`ask_status` VARCHAR(45),
+	`ask_status` ENUM('진행중','답변 완료'),
     -- 문의 답변
 	`ask_reply` TEXT,
     FOREIGN KEY (id) REFERENCES `users`(id) ON DELETE CASCADE
