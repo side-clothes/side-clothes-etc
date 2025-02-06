@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `a1`.`products` (
   -- 고유번호
   `product_id` BIGINT AUTO_INCREMENT PRIMARY KEY,
   -- 메인 카테고리
-  `main_category` ENUM('아우터', '니트', '재킷/베스트', '티셔츠', '셔츠', '팬츠', '패션잡화'),
+  `main_category` ENUM('아우터', '니트', '재킷_베스트', '티셔츠', '셔츠', '팬츠', '패션잡화'),
   -- 추천 카테고리
   `recommend_category` ENUM('랭킹','세일','브랜드','신상품'),
   -- 제품번호
