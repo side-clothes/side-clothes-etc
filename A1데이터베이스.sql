@@ -25,9 +25,9 @@ CREATE TABLE IF NOT EXISTS `a1`.`users` (
   -- 생일
   `user_birth` DATE NOT NULL,
   -- 가입 날짜
-  `sign_up_date` DATETIME NOT NULL,
+  `sign_up_date` VARCHAR(50) NOT NULL,
   -- 탈퇴 날짜
-  `withdraw_date` DATETIME DEFAULT NULL
+  `withdraw_date` VARCHAR(50) DEFAULT NULL
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
