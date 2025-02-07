@@ -27,7 +27,11 @@ CREATE TABLE IF NOT EXISTS `a1`.`users` (
   -- 가입 날짜
   `sign_up_date` VARCHAR(50) NOT NULL,
   -- 탈퇴 날짜
-  `withdraw_date` VARCHAR(50) DEFAULT NULL
+  `withdraw_date` VARCHAR(50) DEFAULT NULL,
+  -- 가입 경로(KAKAO, NAVER)
+  `join_path` VARCHAR(5) DEFAULT NULL,
+  -- OAuth 사용자 아이디
+  `sns_id` VARCHAR(255) DEFAULT NULL
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
